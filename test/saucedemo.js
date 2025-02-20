@@ -1,46 +1,72 @@
-const { Builder, Browser, By, Key, until } = require("selenium-webdriver");
+const { Builder, By, Key, until } = require("selenium-webdriver");
 const assert = require("assert");
 const chrome = require("selenium-webdriver/chrome");
+const edge = require("selenium-webdriver/edge");
+const firefox = require("selenium-webdriver/firefox");
 
 async function saucedemoTest() {
-  let options = new chrome.Options();
-  options.addArguments("--headless=new");
+  const browsers = [
+    {
+      name: "chrome",
+      Options: new chrome.Options().addArguments("--headless=new"),
+    },
+    {
+      name: "MicrosoftEdge",
+      Options: new edge.Options().addArguments("--headless"),
+    },
+    {
+      name: "firefox",
+      Options: new firefox.Options().addArguments("--headless"),
+    },
+  ];
 
-  let driver = await new Builder()
-    .forBrowser(Browser.CHROME)
-    .setChromeOptions(options)
-    .build();
+  for (browser of browsers) {
+    let driver = await new Builder()
+      .forBrowser(browser.name)
+      .setChromeOptions(browser.name === "chrome" ? browser.Options : undefined)
+      .setEdgeOptions(
+        browser.name === "MicrosoftEdge" ? browser.Options : undefined
+      )
+      .setFirefoxOptions(
+        browser.name === "firefox" ? browser.Options : undefined
+      )
+      .build();
 
-  try {
-    await driver.get("https://www.saucedemo.com");
-    await driver
-      .findElement(By.xpath("//input[@id='user-name']"))
-      .sendKeys("standard_user", Key.RETURN);
-    await driver
-      .findElement(By.xpath("//input[@id='password']"))
-      .sendKeys("secret_sauce", Key.RETURN);
-    await driver.findElement(By.xpath("//input[@id='login-button']")).click();
+    try {
+      await driver.get("https://www.saucedemo.com");
+      await driver
+        .findElement(By.xpath("//input[@id='user-name']"))
+        .sendKeys("standard_user", Key.RETURN);
+      await driver
+        .findElement(By.xpath("//input[@id='password']"))
+        .sendKeys("secret_sauce", Key.RETURN);
+      await driver.findElement(By.xpath("//input[@id='login-button']")).click();
 
-    const title = await driver
-      .findElement(By.xpath("//div[@class='app_logo']"))
-      .getText();
-    assert.strictEqual(
-      title.includes("Swag Labs"),
-      true,
-      "Title does not include Swag Labs"
-    );
+      // Assertion untuk verifikasi halaman
+      const title = await driver
+        .findElement(By.xpath("//div[@class='app_logo']"))
+        .getText();
+      assert.strictEqual(
+        title.includes("Swag Labs"),
+        true,
+        "Title does not include Swag Labs"
+      );
 
-    await driver
-      .findElement(By.xpath("//button[@id='add-to-cart-sauce-labs-backpack']"))
-      .click();
+      await driver
+        .findElement(
+          By.xpath("//button[@id='add-to-cart-sauce-labs-backpack']")
+        )
+        .click();
 
-    const cart = await driver.findElement(By.xpath("//a[.='1']")).getText();
-    assert.strictEqual(cart, "1", "Cart count is not 1");
-    await driver.sleep(1000);
+      // Assertion menambahkan sukses ditambahkan ke cart
+      const cart = await driver.findElement(By.xpath("//a[.='1']")).getText();
+      assert.strictEqual(cart, "1", "Cart count is not 1");
+      await driver.sleep(1000);
 
-    console.log("Testing Success");
-  } finally {
-    await driver.quit();
+      console.log("Testing Success on browser: " + browser.name);
+    } finally {
+      await driver.quit();
+    }
   }
 }
 

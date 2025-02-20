@@ -1,8 +1,15 @@
 const { Builder, Browser, By, Key, until } = require("selenium-webdriver");
 const assert = require("assert");
+const chrome = require("selenium-webdriver/chrome");
 
 async function saucedemoTest() {
-  let driver = await new Builder().forBrowser(Browser.CHROME).build();
+  let options = new chrome.Options();
+  options.addArguments("--headless=new");
+
+  let driver = await new Builder()
+    .forBrowser(Browser.CHROME)
+    .setChromeOptions(options)
+    .build();
 
   try {
     await driver.get("https://www.saucedemo.com");
@@ -27,9 +34,7 @@ async function saucedemoTest() {
       .findElement(By.xpath("//button[@id='add-to-cart-sauce-labs-backpack']"))
       .click();
 
-    const cart = await driver
-      .findElement(By.className(".shopping_cart_badge"))
-      .getText();
+    const cart = await driver.findElement(By.xpath("//a[.='1']")).getText();
     assert.strictEqual(cart, "1", "Cart count is not 1");
     await driver.sleep(1000);
 

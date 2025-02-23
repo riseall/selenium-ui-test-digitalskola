@@ -38,7 +38,7 @@ async function loginTest() {
       }
     });
 
-    it.only("ATC-002_Remove product from cart successfully", async () => {
+    it("ATC-002_Remove product from cart successfully", async () => {
       try {
         // add product
         await inventoryPage.addToCart("Sauce Labs Backpack");

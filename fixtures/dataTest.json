@@ -14,7 +14,10 @@
     "emptyUser": "Epic sadface: Username is required",
     "emptyPass": "Epic sadface: Password is required",
     "invalid": "Epic sadface: Username and password do not match any user in this service",
-    "title": "Swag Labs"
+    "title": "Swag Labs",
+    "cartPage": "Your Cart",
+    "checkoutInfo": "Checkout: Your information",
+    "checkoutFinish": "Thank you for your order!"
   },
   "message": {
     "emptyUser": "Message does not include 'Epic sadface: Username is required' as expected",
@@ -22,13 +25,22 @@
     "invalid": "Message does not include 'Epic sadface: Username and password do not match any user in this service' as expected",
     "title": "Message does not include 'Swag Labs' as expected",
     "addToCart": "Message does not include value as expected",
-    "removeFromCart": "Message does not include value as expected"
+    "removeFromCart": "Message does not include value as expected",
+    "cartPage": "Message does not include 'Your Cart' as expected",
+    "checkoutInfo": "Message does not include 'Checkout: Your information' as expected",
+    "checkoutFinish": "Message does not include 'Thank you for your order!' as expected"
   },
   "log": {
     "loginSuccess": "✅ Login Testing Successfully",
     "loginFailed": "✅ Failed Login Testing Successfully",
     "testFailed": "❌ Testing Error : ",
     "addToCartSuccess": "✅ Add to Cart Testing Successfully",
-    "removeFromCart": "✅ Remove From Cart Testing Successfully"
+    "removeFromCart": "✅ Remove From Cart Testing Successfully",
+    "checkoutSuccess": "✅ Checkout Testing Successfully"
+  },
+  "customer": {
+    "firsname": "John",
+    "lastname": "Doe",
+    "zipcode": "12345"
   }
 }

@@ -10,6 +10,7 @@ class InventoryPage {
     this.removeButton = By.xpath("//button[@id='remove']");
     this.cartButton = By.xpath("//a[@data-test='shopping-cart-link']");
     this.cartBadge = By.xpath("//span[@class='shopping_cart_badge']");
+    this.cartPageTitle = By.xpath("//span[@data-test='title']");
   }
 
   // Assertion login success
@@ -55,6 +56,14 @@ class InventoryPage {
   //click cart button
   async goToCart() {
     await this.driver.findElement(this.cartButton).click();
+  }
+
+  // Assert cartPage
+  async verifyCartPage(ExpectedText, message) {
+    const cartPageTitle = await this.driver
+      .findElement(this.cartPageTitle)
+      .getText();
+    assert.strictEqual(cartPageTitle.includes(ExpectedText), true, message);
   }
 }
 

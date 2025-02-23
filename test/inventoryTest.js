@@ -2,6 +2,8 @@ const { Builder } = require("selenium-webdriver");
 const LoginPage = require("../pages/loginPage");
 const InventoryPage = require("../pages/inventoryPage");
 const data = require("../fixtures/dataTest");
+const fs = require("fs");
+const path = require("path");
 
 async function loginTest() {
   describe("Saucedemo Add Product to Cart Test", function () {
@@ -53,6 +55,21 @@ async function loginTest() {
     });
 
     afterEach(async function () {
+      const screenshotDir = path.join(__dirname, "../screenshots");
+      if (!fs.existsSync(screenshotDir)) {
+        fs.mkdirSync(screenshotDir);
+      }
+
+      // Gunakan nama test case untuk screenshot
+      const testCaseName = this.currentTest.title.replace(/\s+/g, "_"); // Ganti spasi dengan underscore
+
+      // Simpan screenshot baru dengan nama test case
+      const image = await driver.takeScreenshot();
+      fs.writeFileSync(
+        path.join(screenshotDir, `${testCaseName}_new.png`),
+        image,
+        "base64"
+      );
       await driver.quit();
     });
   });

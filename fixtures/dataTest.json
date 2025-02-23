@@ -20,11 +20,15 @@
     "emptyUser": "Message does not include 'Epic sadface: Username is required' as expected",
     "emptyPass": "Message does not include 'Epic sadface: Password is required' as expected",
     "invalid": "Message does not include 'Epic sadface: Username and password do not match any user in this service' as expected",
-    "title": "Message does not include 'Swag Labs' as expected"
+    "title": "Message does not include 'Swag Labs' as expected",
+    "addToCart": "Message does not include value as expected",
+    "removeFromCart": "Message does not include value as expected"
   },
   "log": {
     "loginSuccess": "✅ Login Testing Successfully",
     "loginFailed": "✅ Failed Login Testing Successfully",
-    "testFailed": "❌ Testing Error : "
+    "testFailed": "❌ Testing Error : ",
+    "addToCartSuccess": "✅ Add to Cart Testing Successfully",
+    "removeFromCart": "✅ Remove From Cart Testing Successfully"
   }
 }

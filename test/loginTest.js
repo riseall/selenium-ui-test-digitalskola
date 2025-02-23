@@ -111,7 +111,7 @@ async function loginTest() {
       }
     });
 
-    this.afterEach(async function () {
+    afterEach(async function () {
       await driver.quit();
     });
   });

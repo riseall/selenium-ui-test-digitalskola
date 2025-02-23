@@ -38,14 +38,17 @@ async function loginTest() {
       }
     });
 
-    it("ATC-002_Remove product from cart successfully", async () => {
+    it.only("ATC-002_Remove product from cart successfully", async () => {
       try {
         // add product
         await inventoryPage.addToCart("Sauce Labs Backpack");
-        // Assert add to cart
-        await inventoryPage.verifyAddToCart("1", data.message.addToCart);
         // remove product
         await inventoryPage.removeFromCart();
+        // Assert remove product from cart
+        await inventoryPage.verifyRemoveFromCart(
+          "add-to-cart",
+          data.message.removeFromCart
+        );
 
         await driver.sleep(1000);
         console.log(data.log.removeFromCart);
@@ -54,24 +57,24 @@ async function loginTest() {
       }
     });
 
-    afterEach(async function () {
-      const screenshotDir = path.join(__dirname, "../screenshots");
-      if (!fs.existsSync(screenshotDir)) {
-        fs.mkdirSync(screenshotDir);
-      }
+    // afterEach(async function () {
+    //   const screenshotDir = path.join(__dirname, "../screenshots");
+    //   if (!fs.existsSync(screenshotDir)) {
+    //     fs.mkdirSync(screenshotDir);
+    //   }
 
-      // Gunakan nama test case untuk screenshot
-      const testCaseName = this.currentTest.title.replace(/\s+/g, "_"); // Ganti spasi dengan underscore
+    //   // Gunakan nama test case untuk screenshot
+    //   const testCaseName = this.currentTest.title.replace(/\s+/g, "_"); // Ganti spasi dengan underscore
 
-      // Simpan screenshot baru dengan nama test case
-      const image = await driver.takeScreenshot();
-      fs.writeFileSync(
-        path.join(screenshotDir, `${testCaseName}_new.png`),
-        image,
-        "base64"
-      );
-      await driver.quit();
-    });
+    //   // Simpan screenshot baru dengan nama test case
+    //   const image = await driver.takeScreenshot();
+    //   fs.writeFileSync(
+    //     path.join(screenshotDir, `${testCaseName}_new.png`),
+    //     image,
+    //     "base64"
+    //   );
+    //   await driver.quit();
+    // });
   });
 }
 

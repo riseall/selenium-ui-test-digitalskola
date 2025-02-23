@@ -48,10 +48,12 @@ class InventoryPage {
   }
 
   // Assert remove product from cart
-  //   async verifyRemoveFromCart(ExpectedText, message) {
-  //     const cartCount = await this.driver.findElement(this.cartBadge).getText();
-  //     assert.strictEqual(cartCount.includes(ExpectedText), true, message);
-  //   }
+  async verifyRemoveFromCart(ExpectedText, message) {
+    const cartCount = await this.driver
+      .findElement(this.addToCartButton)
+      .getAttribute("name");
+    assert.strictEqual(cartCount.includes(ExpectedText), true, message);
+  }
 
   //click cart button
   async goToCart() {

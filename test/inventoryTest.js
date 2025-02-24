@@ -57,24 +57,24 @@ async function loginTest() {
       }
     });
 
-    // afterEach(async function () {
-    //   const screenshotDir = path.join(__dirname, "../screenshots");
-    //   if (!fs.existsSync(screenshotDir)) {
-    //     fs.mkdirSync(screenshotDir);
-    //   }
+    afterEach(async function () {
+      const screenshotDir = path.join(__dirname, "../screenshots");
+      if (!fs.existsSync(screenshotDir)) {
+        fs.mkdirSync(screenshotDir);
+      }
 
-    //   // Gunakan nama test case untuk screenshot
-    //   const testCaseName = this.currentTest.title.replace(/\s+/g, "_"); // Ganti spasi dengan underscore
+      // Gunakan nama test case untuk screenshot
+      const testCaseName = this.currentTest.title.replace(/\s+/g, "_"); // Ganti spasi dengan underscore
 
-    //   // Simpan screenshot baru dengan nama test case
-    //   const image = await driver.takeScreenshot();
-    //   fs.writeFileSync(
-    //     path.join(screenshotDir, `${testCaseName}_new.png`),
-    //     image,
-    //     "base64"
-    //   );
-    //   await driver.quit();
-    // });
+      // Simpan screenshot baru dengan nama test case
+      const image = await driver.takeScreenshot();
+      fs.writeFileSync(
+        path.join(screenshotDir, `${testCaseName}_new.png`),
+        image,
+        "base64"
+      );
+      await driver.quit();
+    });
   });
 }
 
